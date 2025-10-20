@@ -1,23 +1,2 @@
-a b
-a h
-b c
-b j
-b h
-c j
-c d
-c e
-d j
-d i
-d e
-e j
-e i
-e f
-e g
-f i
-f h
-f g
-g i
-g h
-h i
-h j
-i j
+V = {a, b, c, d, e, f, g, h, i, j}
+E = {ab, ah, bc, bj, bh, cj, cd, ce, dj, di, de, ej, ei, ef, eg, fi, fh, fg, gi, gh, hi, hj, ij}

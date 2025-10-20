@@ -1,14 +1,2 @@
-a b
-a h
-b h
-b d
-b c
-c d
-d i
-d f
-d e
-e f
-f i
-f h
-f g
-g h
+V = {a, b, c, d, e, f, g, h, i}
+E = {ab, ah, bh, bd, bc, cd, di, df, de, ef, fi, fh, fg, gh}

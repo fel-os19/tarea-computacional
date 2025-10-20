@@ -1,11 +1,2 @@
-a b
-a c
-b d
-d h
-d i
-c e
-c f
-c g
-g l
-f j
-f k
+V = {a, b, c, d, e, f, g, h, i, j, k, l}
+E = {ab, ac, bd, dh, di, ce, cf, cg, gl, fj, fk}
