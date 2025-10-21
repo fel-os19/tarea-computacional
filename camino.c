@@ -300,16 +300,17 @@ int main(int argc, char *argv[])
         free(vertices);
         return -1;
     }
-
-    printf("Vertices: %d\n ", vNum);
-    for (int i = 0; i < vNum; i++)
+    //prints en caso de necesitar ver la matriz de adyacencia
+    //printf("Vertices: %d\n ", vNum);
+    /*for (int i = 0; i < vNum; i++)
         printf("%c ", vertices[i].nombre);
-    printf("\n\nMatriz de adyacencia:\n");
-    imprimirMatriz(matriz, vertices, vNum);
+    */
+    //printf("\n\nMatriz de adyacencia:\n");
+    //imprimirMatriz(matriz, vertices, vNum);
 
     aplicarOrientacion(vNum, matriz, atoi(argv[2]));
-    printf("\nOrientacion aplicada:\n");
-    imprimirMatriz(matriz, vertices, vNum);
+    //printf("\nOrientacion aplicada:\n");
+    //imprimirMatriz(matriz, vertices, vNum);
 
     int origen = buscarIndice(vertices, vNum, argv[3][0]);
     int destino = buscarIndice(vertices, vNum, argv[4][0]);
