@@ -281,7 +281,7 @@ int validarEntrada(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    if (!validarEntrada(argc, argv))
+    if (validarEntrada(argc, argv) != 1)
         return -1;
 
     int vNum = 0;
