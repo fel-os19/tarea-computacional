@@ -24,8 +24,8 @@ void inicializarVertice(Vertice *vertice, char nombre)
     vertice->visitado = false;
     vertice->IndicePadre = -1;
 }
-
-int **asignarMatrizDinámica(int vNum)
+// función para asignar memoria dinámica a una matriz de adyacencia
+int **asignarMatrizDinamica(int vNum)
 {
     int **matriz = malloc(vNum * sizeof(int *));
     if (!matriz)
@@ -55,7 +55,7 @@ void liberarMatriz(int **matriz, int vNum)
     free(matriz);
 }
 // función puramente utilitaría para debug, pero no tiene que ver con el objetivo principal
-void imprimirMatriz(const int **matriz, const Vertice *vertices, int vNum)
+void imprimirMatriz( int **matriz, const Vertice *vertices, int vNum)
 {
     printf("   ");
     for (int i = 0; i < vNum; i++)
@@ -69,7 +69,7 @@ void imprimirMatriz(const int **matriz, const Vertice *vertices, int vNum)
         printf("\n");
     }
 }
-
+// algoritmo de dijkstra
 void dijkstra(int vNum, int **matriz, Vertice vertices[], int origen, int destino)
 {
     vertices[origen].distancia = 0;
@@ -112,7 +112,7 @@ void dijkstra(int vNum, int **matriz, Vertice vertices[], int origen, int destin
         return;
     }
     // construcción del camino, se puede separar de la lógica de dijkstra si se quiere
-    printf("Camino más corto de %c a %c: ", vertices[origen].nombre, vertices[destino].nombre);
+    printf("Camino mas corto de %c a %c: ", vertices[origen].nombre, vertices[destino].nombre);
     int camino[NVMAX]; // le pasamos esa constante para que compile aunque luego será cambiado
     int tam = 0;       // el tamaño del arreglo irá creciendo en tiempo de ejecución
     for (int v = destino; v != -1; v = vertices[v].IndicePadre)
@@ -125,7 +125,7 @@ void dijkstra(int vNum, int **matriz, Vertice vertices[], int origen, int destin
 
 // básicamente solo busca en qué posición del arreglo está, pero
 // se puede usar ascii en su lugar, si asumimos una lista ordenada de vértices
-int buscarIndice(const Vertice vertices[], int vNum, char nombre)
+int buscarIndice(Vertice vertices[], int vNum, char nombre)
 {
     for (int i = 0; i < vNum; i++)
         if (vertices[i].nombre == nombre)
@@ -175,8 +175,8 @@ void aplicarOrientacion(int vNum, int **matriz, int tipo)
         }
     }
 }
-
-int leerArchivo(int *vNum, int *vCapacidad, const char *nombretxt, Vertice **vertices, int ***matriz)
+// función para leer el archivo y cargar vértices y matriz
+int leerArchivo(int *vNum, int *vCapacidad, char *nombretxt, Vertice **vertices, int ***matriz)
 {
     FILE *archivo = fopen(nombretxt, "r");
     if (!archivo)
@@ -221,7 +221,7 @@ int leerArchivo(int *vNum, int *vCapacidad, const char *nombretxt, Vertice **ver
     }
     // esto básicamente al puntero nulo de matriz en el main le asignamos memoria
     // se hizo por simplicidad de manejar punteros por referencia en lugar de matriz estática
-    *matriz = asignarMatrizDinámica(*vNum);
+    *matriz = asignarMatrizDinamica(*vNum);
     if (!*matriz)
     {
         fclose(archivo);
@@ -257,7 +257,7 @@ int leerArchivo(int *vNum, int *vCapacidad, const char *nombretxt, Vertice **ver
     fclose(archivo);
     return 1;
 }
-
+// función para validar la entrada del programa
 int validarEntrada(int argc, char *argv[])
 {
     if (argc != 5)
@@ -268,12 +268,12 @@ int validarEntrada(int argc, char *argv[])
     int tipo = atoi(argv[2]);
     if (tipo < 1 || tipo > 4)
     {
-        fprintf(stderr, "Tipo de orientación inválido (1-4)\n");
+        fprintf(stderr, "Tipo de orientacion invalido (1-4)\n");
         return -1;
     }
     if (strlen(argv[3]) != 1 || !isalpha(argv[3][0]) || strlen(argv[4]) != 1 || !isalpha(argv[4][0]))
     {
-        fprintf(stderr, "Vértices deben ser letras\n");
+        fprintf(stderr, "Vertices deben ser letras\n");
         return -1;
     }
     return 1;
@@ -301,21 +301,21 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    printf("Vértices: %d\n ", vNum);
+    printf("Vertices: %d\n ", vNum);
     for (int i = 0; i < vNum; i++)
         printf("%c ", vertices[i].nombre);
     printf("\n\nMatriz de adyacencia:\n");
     imprimirMatriz(matriz, vertices, vNum);
 
     aplicarOrientacion(vNum, matriz, atoi(argv[2]));
-    printf("\nOrientación aplicada:\n");
+    printf("\nOrientacion aplicada:\n");
     imprimirMatriz(matriz, vertices, vNum);
 
     int origen = buscarIndice(vertices, vNum, argv[3][0]);
     int destino = buscarIndice(vertices, vNum, argv[4][0]);
     if (origen == -1 || destino == -1)
     {
-        fprintf(stderr, "Vértices inválidos\n");
+        fprintf(stderr, "Vertices invalidos\n");
         liberarMatriz(matriz, vNum);
         free(vertices);
         return -1;
