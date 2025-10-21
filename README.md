@@ -3,7 +3,8 @@ Este programa permite cargar un grafo no dirigido desde un archivo, aplicar una 
 ## Compilación 
 gcc camino.c -o camino 
 ## Uso
-comando:  ./**camino** **<nombre_de_archivo>** **<tipo_de_orientación>** **<vértice_origen>** **<vértice_destino>**  
+Comando
+./**camino** **<nombre_de_archivo>** **<tipo_de_orientación>** **<vértice_origen>** **<vértice_destino>**  
  Hay 4 orientaciones:  
     **1** : a - b se convierte a a -> b  
     **2** : a - b se convierte a a <- b  
